@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn-metacritic-app",
-    "slug": "rn-metacritic-app",
+    "name": "rm-app",
+    "slug": "rm-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

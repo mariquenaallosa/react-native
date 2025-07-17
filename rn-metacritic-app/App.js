@@ -1,29 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Button, TouchableHighlight } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView, FlatList } from 'react-native';
+import { getCharactersRM } from './lib/api';
 
-const icon = require('./assets/icon.png'); // Adjust the path as necessary
 
 export default function App() {
+  const [characters, setCharacters] = useState([]);
+  console.log('characters', characters);
+  
+
+
+  useEffect(() => {
+    getCharactersRM().then(characters => setCharacters(characters));
+  }, []);
+
+
+
   return (
     <View style={styles.container}>
-      <Button title='Button' onPress={() => alert("Hola desde un button") }/>
-      <TouchableHighlight
-      underlayColor={"#09f"}
-      onPress={() => alert("Hola desde TouchableHighlight")}
-      style={{
-        width: 200,
-        height:200,
-        backgroundColor: 'red', 
-        borderRadius: 100, 
-        justifyContent: 'center',
-        alignItems: 'center'
-        }}>
-        <Text style={{
-          color: 'white', 
-          fontSize: 20, 
-          }}>TouchableHighlight</Text>
-      </TouchableHighlight>
       <StatusBar style="light" />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {characters.map((character) => {
+          return(
+          <View key={character.id} style={styles.card}>
+            <Image source={{ uri: character.image }} style={styles.image} />
+            <Text style={styles.name}>{character.name}</Text>
+            <Text style={styles.gender}>Gender: {character.gender}</Text>
+            <Text style={styles.status}>Status: {character.status}</Text>
+            <Text style={styles.species}>Species: {character.species}</Text>
+          </View>)
+        })}
+      </ScrollView>
     </View>
   );
 }
@@ -32,7 +39,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  scrollContainer: {
+    alignItems: 'center',
+    paddingTop: 50,
+    paddingBottom: 20,
+  },
+  card: {
+    backgroundColor: '#333',
+    padding: 20,
+    margin: 10,
+    borderRadius: 10,
+    width: '90%',
+    alignItems: 'center',
+  },
+  image: { width: 100,
+    height: 100,
+    borderRadius: 10,
+  },
+
+  name: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold', 
+  },
+  gender: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  status: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  species: {
+    color: '#fff',
+    fontSize: 16,
+  }
 });

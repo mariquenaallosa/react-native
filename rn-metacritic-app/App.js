@@ -1,19 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TouchableHighlight } from 'react-native';
 
 const icon = require('./assets/icon.png'); // Adjust the path as necessary
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Image source={{uri: "https://metacritic.com/a/img/catalog/provider/6/3/6-1-4763-13.jpg" }} style={{
-        width:300, 
-        height:500,
-        resizeMode: 'contain',
-        marginBottom: 20,
-        marginTop: 20,
-        }}/>
-      <Text style={{color: 'white'}}>Open up App.js to start working on your app! Hola Pili</Text>
+      <Button title='Button' onPress={() => alert("Hola desde un button") }/>
+      <TouchableHighlight
+      underlayColor={"#09f"}
+      onPress={() => alert("Hola desde TouchableHighlight")}
+      style={{
+        width: 200,
+        height:200,
+        backgroundColor: 'red', 
+        borderRadius: 100, 
+        justifyContent: 'center',
+        alignItems: 'center'
+        }}>
+        <Text style={{
+          color: 'white', 
+          fontSize: 20, 
+          }}>TouchableHighlight</Text>
+      </TouchableHighlight>
       <StatusBar style="light" />
     </View>
   );
